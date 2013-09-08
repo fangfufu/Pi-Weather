@@ -19,7 +19,7 @@ int main(int argc, const char *argv[])
                 "Please supply a valid number.\n" );
         exit(2);
     }
-    printf("Turing on the pump for %d seconds\n", sec);
+    printf("Turing on the pump for %d seconds...", sec);
     exp_open();
             darlington_on(1);
             darlington_on(2);
@@ -31,5 +31,6 @@ int main(int argc, const char *argv[])
             darlington_off(3);
             darlington_off(4);
     exp_close();
+    printf("Done!\n");
     return 0;
 }
