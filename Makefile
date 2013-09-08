@@ -6,25 +6,25 @@ endif
 
 CFLAGS = -std=gnu99 -Wall -Wextra -O2 -pedantic
 LDFLAGS =
-COMMON_SOURCES = lowlevel.c darlington.c
+COMMON_SOURCES = lowlevel.c
 COMMON_OBJECTS = $(COMMON_SOURCES:.c=.o)
 INSTALL_PATH = /usr/local/bin
 EXECUTABLE = Pi-Water
 
 all: $(EXECUTABLE)
 
-Pi-Water: Pi-Water.o $(COMMON_OBJECTS)
+Pi-Water: Pi-Water.o darlington.o $(COMMON_OBJECTS)
 	$(CC) $(LDFLAGS) $^ -o $@
 
 depend: .depend
-.depend: $(SOURCES)
+.depend: *.c
 	rm -f ./.depend
 	$(CC) $(CFLAGS) -MM $^ -MF  ./.depend
 include .depend
 
 .PHONY: clean
 clean:
-	rm *.o $(EXECUTABLE) -rf
+	rm .depend *.o $(EXECUTABLE) -rf
 
 .PHONY: install
 install:
