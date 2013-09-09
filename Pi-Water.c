@@ -10,11 +10,11 @@ int main(int argc, const char *argv[])
 {
     if (argc == 1) {
         fprintf(stderr,
-                "Usage: Pi-Water CUP\n1 CUP = running the pump for 15 seconds\n" );
+                "Usage: Pi-Water CUP\n1 CUP = running the pump for 14 seconds\n" );
         exit(-1);
     }
     double cup = atof(argv[1]);
-    int sec = cup * 15;
+    int sec = cup * 14;
     if (sec == 0) {
         fprintf(stderr,
                 "Please supply a valid number.\n" );
