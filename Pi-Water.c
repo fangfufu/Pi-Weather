@@ -13,8 +13,8 @@ int main(int argc, const char *argv[])
                 "Usage: Pi-Water CUP\n1 CUP = running the pump for 15 seconds\n" );
         exit(-1);
     }
-    int sec = atoi(argv[1]);
-    sec *= 15;
+    double cup = atof(argv[1]);
+    int sec = cup * 15;
     if (sec == 0) {
         fprintf(stderr,
                 "Please supply a valid number.\n" );
