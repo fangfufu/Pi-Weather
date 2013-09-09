@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 
 #include "lowlevel.h"
 #include "darlington.h"
@@ -14,8 +15,9 @@ int darlington_on(int p) {
     uint8_t buf[2];
     buf[0] = DARLINGTON_ON;
     buf[1] = p;
-    if (exp_write(buf, sizeof(buf)) == 2)
+    if (exp_write(buf, sizeof(buf)) == 2) {
         return 0;
+    }
     return 2;
 }
 
@@ -27,7 +29,8 @@ int darlington_off(int p) {
     uint8_t buf[2];
     buf[0] = DARLINGTON_OFF;
     buf[1] = p;
-    if (exp_write(buf, sizeof(buf)) == 2)
+    if (exp_write(buf, sizeof(buf)) == 2){
         return 0;
+    }
     return 2;
 }

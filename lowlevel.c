@@ -40,6 +40,7 @@ int exp_write(const uint8_t *buf, int len)
     if (r < 0) {
         fprintf(stderr, "exp_write error: %s\n", strerror(errno));
     }
+    usleep(1000);
     return r;
 }
 
@@ -58,6 +59,7 @@ int exp_read(uint8_t* buf, int len)
     if (r < 0) {
         fprintf(stderr, "exp_write error: %s\n", strerror(errno));
     }
+    usleep(1000);
     return r;
 }
 
