@@ -5,6 +5,11 @@ else
 endif
 
 CFLAGS = -std=gnu99 -Wall -Wextra -O2 -pedantic
+
+ifneq ($(RPI_REV1),)
+CFLAGS += -DRPI_REV1
+endif
+
 LDFLAGS =
 COMMON_SOURCES = lowlevel.c
 COMMON_OBJECTS = $(COMMON_SOURCES:.c=.o)

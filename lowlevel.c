@@ -25,10 +25,6 @@ static int fd;
 /** Initialisation status */
 static int g_init = 0;
 
-/**
- * @brief Write to the weather station board.
- * @return the same as the write call
- */
 int exp_write(const uint8_t *buf, int len)
 {
     if (!g_init) {
@@ -44,10 +40,6 @@ int exp_write(const uint8_t *buf, int len)
     return r;
 }
 
-/**
- * @brief read from the weather station board
- * @return the same as the read call
- */
 int exp_read(uint8_t* buf, int len)
 {
     if (!g_init) {
@@ -55,12 +47,17 @@ int exp_read(uint8_t* buf, int len)
         return -1;
     }
 
-    int r = write(fd, buf, len);
+    int r = read(fd, buf, len);
     if (r < 0) {
         fprintf(stderr, "exp_write error: %s\n", strerror(errno));
     }
     usleep(1000);
     return r;
+}
+
+int exp_write_byte(uint8_t byte)
+{
+    return exp_write(&byte, 1);
 }
 
 int exp_open()

@@ -23,7 +23,20 @@ int exp_open();
  */
 int exp_close();
 
+/**
+ * @brief Write to the weather station board.
+ * @return the same as the write call
+ */
 int exp_write(const uint8_t *buf, int len);
 
+/**
+ * @brief read from the weather station board
+ * @return the same as the read call
+ */
 int exp_read(uint8_t* buf, int len);
+
+/**
+ * @brief write a byte to the expansion board
+ */
+int exp_write_byte(uint8_t byte);
 #endif
