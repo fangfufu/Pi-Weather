@@ -19,6 +19,8 @@
 /** The address for the expansion board */
 #define I2C_ADDR                0x4E
 
+#define READ_BOARD_VERSION 0x24
+
 /** File descriptor for the I2C bus */
 static int fd;
 
@@ -55,7 +57,7 @@ int exp_read(uint8_t* buf, int len)
     return r;
 }
 
-int exp_write_byte(uint8_t byte)
+int exp_write_byte(const uint8_t byte)
 {
     return exp_write(&byte, 1);
 }
@@ -89,4 +91,14 @@ int exp_close()
         fprintf(stderr, "GPIO_close error: %s\n", strerror(errno));
     }
     return t;
+}
+int read_board_version()
+{
+    uint8_t ver;
+    int r = exp_write_byte(READ_BOARD_VERSION);
+    r += exp_read(&ver, 1);
+    if (r != 2) {
+        fprintf(stderr, "read_board_version error: %d\n", r);
+    }
+    return ver;
 }

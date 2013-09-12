@@ -38,5 +38,11 @@ int exp_read(uint8_t* buf, int len);
 /**
  * @brief write a byte to the expansion board
  */
-int exp_write_byte(uint8_t byte);
+int exp_write_byte(const uint8_t byte);
+
+/**
+ * @brief read expansion board firmware version number
+ */
+int read_board_version();
+
 #endif

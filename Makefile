@@ -14,11 +14,20 @@ LDFLAGS =
 COMMON_SOURCES = lowlevel.c
 COMMON_OBJECTS = $(COMMON_SOURCES:.c=.o)
 INSTALL_PATH = /usr/local/bin
-EXECUTABLE = Pi-Water
+EXECUTABLE = Pi-Water Pi-Sensors Pi-UV Pi-Time
 
 all: $(EXECUTABLE)
 
+Pi-Time: Pi-Time.o time.o $(COMMON_OBJECTS)
+	$(CC) $(LDFLAGS) $^ -o $@
+
 Pi-Water: Pi-Water.o darlington.o $(COMMON_OBJECTS)
+	$(CC) $(LDFLAGS) $^ -o $@
+
+Pi-UV: Pi-UV.o darlington.o $(COMMON_OBJECTS)
+	$(CC) $(LDFLAGS) $^ -o $@
+
+Pi-Sensors : Pi-Sensors.o sensors.o $(COMMON_OBJECTS)
 	$(CC) $(LDFLAGS) $^ -o $@
 
 depend: .depend
