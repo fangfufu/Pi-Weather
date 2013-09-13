@@ -18,6 +18,7 @@ int darlington_on(int p) {
     if (exp_write(buf, sizeof(buf)) == 2) {
         return 0;
     }
+    fprintf(stderr, "darlington_on error.\n");
     return 2;
 }
 
@@ -32,5 +33,6 @@ int darlington_off(int p) {
     if (exp_write(buf, sizeof(buf)) == 2){
         return 0;
     }
+    fprintf(stderr, "darlington_off error.\n");
     return 2;
 }
