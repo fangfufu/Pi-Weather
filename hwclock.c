@@ -1,3 +1,11 @@
+/**
+ * @file hwclock.c
+ * @brief A hwclock replacement
+ * @details This program is designed to replace hwclock in util-linux.
+ * In order to use this program to synchronise time at boot and shutdown,
+ * please replace all instances of /sbin/hwclock by /usr/local/bin/hwclock in
+ * /etc/init.d/hwclock.sh.
+ */
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>

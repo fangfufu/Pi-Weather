@@ -1,3 +1,7 @@
+/**
+ * @file WB-Sensor.c
+ * @brief a program to read the onboard sensors.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -54,7 +58,7 @@ int main(int argc, char *argv[])
     }
 
     char *p;
-    exp_open();
+    int r = exp_open();
     for (p = argv[1]; *p != '\0'; p++) {
         if (*p == '\\') {
             switch (*++p) {
@@ -98,6 +102,7 @@ int main(int argc, char *argv[])
             putchar(*p);
         }
     }
-    exp_close();
+    r += exp_close();
     puts("");
+    return r;
 }

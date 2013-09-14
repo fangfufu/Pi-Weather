@@ -1,3 +1,9 @@
+/**
+ * @file WB-Water.c
+ * @brief A program to control the Darlington array.
+ * @details A program to turn on all the Darlington transistors in order to
+ * water my flower.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
