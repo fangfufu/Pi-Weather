@@ -99,11 +99,11 @@ int main(int argc, char* const* argv)
         exit(0);
     }
 
-    exp_open();
+    int r = exp_open();
     if (mode == HCTOSYS) {
-        rtc_hctosys();
+        r += rtc_hctosys();
     } else if (mode == SYSTOHC) {
-        rtc_systohc();
+        r += rtc_systohc();
     } else {
         time_t tt;
         time(&tt);
@@ -120,4 +120,6 @@ int main(int argc, char* const* argv)
         }
         printf("%s  %f seconds\n", s, b);
     }
+    r += exp_close();
+    return r;
 }

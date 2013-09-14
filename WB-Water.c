@@ -24,8 +24,7 @@ int main(int argc, const char *argv[])
         exit(-2);
     }
     printf("Turing on the pump for %d seconds...", sec);
-    exp_open();
-    int r = 0;
+    int r = exp_open();
     r += darlington_on(1);
     r += darlington_on(2);
     r += darlington_on(3);
@@ -35,7 +34,7 @@ int main(int argc, const char *argv[])
     r += darlington_off(2);
     r += darlington_off(3);
     r += darlington_off(4);
-    exp_close();
+    r += exp_close();
     printf("Done!\n");
     return r;
 }

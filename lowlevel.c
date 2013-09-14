@@ -30,7 +30,7 @@ static int g_init = 0;
 int exp_write(const uint8_t *buf, int len)
 {
     if (!g_init) {
-        fprintf(stderr, "exp_write error: is not initialised.\n");
+        fprintf(stderr, "exp_write error: not initialised.\n");
         return -1;
     }
 
@@ -38,14 +38,13 @@ int exp_write(const uint8_t *buf, int len)
     if (r < 0) {
         fprintf(stderr, "exp_write error: %s\n", strerror(errno));
     }
-    usleep(1000);
     return r;
 }
 
 int exp_read(uint8_t* buf, int len)
 {
     if (!g_init) {
-        fprintf(stderr, "exp_read error: GPIO not initialised.\n");
+        fprintf(stderr, "exp_read error: not initialised.\n");
         return -1;
     }
 
@@ -53,7 +52,6 @@ int exp_read(uint8_t* buf, int len)
     if (r < 0) {
         fprintf(stderr, "exp_write error: %s\n", strerror(errno));
     }
-    usleep(1000);
     return r;
 }
 
@@ -66,17 +64,17 @@ int exp_open()
 {
     if (g_init == 1) {
         fprintf(stderr,
-                "GPIO_open: I/O expander is already initialised.\n");
+                "exp_open: already initialised.\n");
         return 0;
     }
     g_init = 1;
     fd = open(I2C_BUS, O_RDWR);
     if (fd == -1) {
-        fprintf(stderr, "GPIO_open error: %s\n", strerror(errno));
+        fprintf(stderr, "exp_open error: %s\n", strerror(errno));
         return -1;
     }
     if (ioctl(fd, I2C_SLAVE, I2C_ADDR) == -1) {
-        fprintf(stderr, "GPIO_open: ioctl error: %s\n", strerror(errno));
+        fprintf(stderr, "exp_open: ioctl error: %s\n", strerror(errno));
         return -1;
     }
     return 0;
@@ -88,10 +86,11 @@ int exp_close()
     if (t == 0) {
         fd = g_init = 0;
     } else {
-        fprintf(stderr, "GPIO_close error: %s\n", strerror(errno));
+        fprintf(stderr, "exp_close error: %s\n", strerror(errno));
     }
     return t;
 }
+
 int read_board_version()
 {
     uint8_t ver;
