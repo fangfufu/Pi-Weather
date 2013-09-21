@@ -57,49 +57,56 @@ int main(int argc, char *argv[])
         return print_summary();
     }
 
-    char *p;
     int r = exp_open();
-    for (p = argv[1]; *p != '\0'; p++) {
-        if (*p == '\\') {
-            switch (*++p) {
-                case 'n':
-                    putchar('\n');
-                    break;
-                case 't':
-                    putchar('\t');
-                    break;
-                default:
-                    putchar('\\');
-                    putchar(*p);
-                    break;
+
+    int i;
+    char *p;
+    for (i = 1; i < argc; i++) {
+        for (p = argv[i]; *p != '\0'; p++) {
+            if (*p == '\\') {
+                switch (*++p) {
+                    case 'n':
+                        putchar('\n');
+                        break;
+                    case 't':
+                        putchar('\t');
+                        break;
+                    default:
+                        putchar('\\');
+                        putchar(*p);
+                        break;
+                }
+            } else if (*p == '%') {
+                switch (*++p) {
+                    case 'v':
+                        printf("%d", read_board_version());
+                        break;
+                    case 'h':
+                        printf("%d", read_humidity());
+                        break;
+                    case 'p':
+                        printf("%.1f", read_pressure());
+                        break;
+                    case 'b':
+                        printf("%d", read_board_temp());
+                        break;
+                    case 'r':
+                        printf("%.1f", read_sensor_temp(1));
+                        break;
+                    case 'o':
+                        printf("%.1f", read_sensor_temp(2));
+                        break;
+                    default:
+                        putchar('%');
+                        putchar(*p);
+                        break;
+                }
+            } else {
+                putchar(*p);
             }
-        } else if (*p == '%') {
-            switch (*++p) {
-                case 'v':
-                    printf("%d", read_board_version());
-                    break;
-                case 'h':
-                    printf("%d", read_humidity());
-                    break;
-                case 'p':
-                    printf("%.1f", read_pressure());
-                    break;
-                case 'b':
-                    printf("%d", read_board_temp());
-                    break;
-                case 'r':
-                    printf("%.1f", read_sensor_temp(1));
-                    break;
-                case 'o':
-                    printf("%.1f", read_sensor_temp(2));
-                    break;
-                default:
-                    putchar('%');
-                    putchar(*p);
-                    break;
-            }
-        } else {
-            putchar(*p);
+        }
+        if (i < (argc - 1)) {
+            putchar(' ');
         }
     }
     r += exp_close();
