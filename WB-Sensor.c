@@ -103,6 +103,5 @@ int main(int argc, char *argv[])
         }
     }
     r += exp_close();
-    puts("");
     return r;
 }
