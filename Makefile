@@ -14,10 +14,11 @@ LDFLAGS =
 COMMON_SOURCES = lowlevel.c
 COMMON_OBJECTS = $(COMMON_SOURCES:.c=.o)
 INSTALL_PATH = /usr/local/bin
-STICKY_EXECUTABLE = WB-Water WB-Sensor
-EXECUTABLE = hwclock
+STICKY_BIN = WB-Water WB-Sensor
+NORMAL_BIN = hwclock
+BIN = $(NORMAL_BIN) $(STICKY_BIN)
 
-all: $(EXECUTABLE) $(STICKY_EXECUTABLE)
+all: $(BIN)
 
 hwclock: hwclock.o rtc.o $(COMMON_OBJECTS)
 	$(CC) $(LDFLAGS) $^ -o $@
@@ -36,14 +37,13 @@ include .depend
 
 .PHONY: clean
 clean:
-	rm *.o $(EXECUTABLE) $(STICKY_EXECUTABLE) -rf
+	rm *.o $(BIN) -rf
 
 .PHONY: install
 install:
-	install -m 0755 $(EXECUTABLE) /usr/local/bin
-	install -m 4755 $(STICKY_EXECUTABLE) /usr/local/bin
+	install -m 0755 $(NORMAL_BIN) /usr/local/bin
+	install -m 4755 $(STICKY_BIN) /usr/local/bin
 
 .PHONY: uninstall
 uninstall:
-	$(foreach file, $(STICKY_EXECUTABLE), rm -rf /usr/local/$(file);)
-	$(foreach file, $(EXECUTABLE), rm -rf /usr/local/$(file);)
+	rm -rf $(foreach file, $(BIN), /usr/local/bin/$(file))
