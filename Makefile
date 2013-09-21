@@ -45,5 +45,5 @@ install:
 
 .PHONY: uninstall
 uninstall:
-	$(foreach file, $(STICKY_EXECUTABLE), rm -rf /usr/local/$(file))
-	$(foreach file, $(EXECUTABLE), rm -rf /usr/local/$(file))
+	$(foreach file, $(STICKY_EXECUTABLE), rm -rf /usr/local/$(file);)
+	$(foreach file, $(EXECUTABLE), rm -rf /usr/local/$(file);)
