@@ -36,7 +36,7 @@ include .depend
 
 .PHONY: clean
 clean:
-	rm *.o $(EXECUTABLE) -rf
+	rm *.o $(EXECUTABLE) $(STICKY_EXECUTABLE) -rf
 
 .PHONY: install
 install:
@@ -46,3 +46,4 @@ install:
 .PHONY: uninstall
 uninstall:
 	rm -rf /usr/local/bin/$(EXECUTABLE)
+	rm -rf /usr/local/bin/$(STICKY_EXECUTABLE)
