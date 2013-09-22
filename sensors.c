@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 #include "lowlevel.h"
 
 #define BOARD_TEMP              0x42
@@ -29,7 +30,7 @@ int read_humidity()
     return humidity;
 }
 
-float read_sensor_temp(int sensor)
+static float int_read_sensor_temp(int sensor)
 {
     int r;
     if (sensor == 1) {
@@ -43,10 +44,22 @@ float read_sensor_temp(int sensor)
     uint8_t buf[2];
     r += exp_read(buf, 2);
     if (r != 3) {
-        fprintf(stderr, "read_sensor_temp error: %d", r);
+        fprintf(stderr, "read_sensor_temp error: %d\n", r);
     }
     int16_t* result = (int16_t*) buf;
+    /* sensor glitching avoidance */
+    usleep(2000);
     return (float) *result / 10;
+}
+
+float read_sensor_temp(int sensor)
+{
+    float a, b;
+    while ( (a = int_read_sensor_temp(sensor))
+        != (b = int_read_sensor_temp(sensor)) ) {
+        fprintf(stderr, "read_sensor_temp: DB18B20 Glitching\n");
+        }
+    return b;
 }
 
 float read_pressure()
@@ -55,7 +68,7 @@ float read_pressure()
     int r = exp_write_byte(PRESSURE);
     r += exp_read(buf, 2);
     if (r != 3) {
-        fprintf(stderr, "read_sensor_temp error: %d", r);
+        fprintf(stderr, "read_sensor_temp error: %d\n", r);
     }
     uint16_t* result = (uint16_t*) buf;
     return (float) *result / 10;
