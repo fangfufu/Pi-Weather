@@ -14,8 +14,8 @@ LDFLAGS =
 COMMON_SOURCES = lowlevel.c
 COMMON_OBJECTS = $(COMMON_SOURCES:.c=.o)
 INSTALL_PATH = /usr/local/bin
-STICKY_BIN = WB-Water WB-Sensor
-NORMAL_BIN = hwclock
+NORMAL_BIN = WB-Water WB-Sensor
+STICKY_BIN = hwclock
 BIN = $(NORMAL_BIN) $(STICKY_BIN)
 
 all: $(BIN)
